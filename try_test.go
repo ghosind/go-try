@@ -2,6 +2,7 @@ package try_test
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 
 	"github.com/ghosind/go-assert"
@@ -29,6 +30,18 @@ func TestTry(t *testing.T) {
 	})
 	a.EqualNow(err, expectedErr)
 	a.EqualNow(out, []any{})
+}
+
+func ExampleTry() {
+	out, err := try.Try(func() int {
+		// TODO
+		return 0
+	})
+	fmt.Println(out)
+	fmt.Println(err)
+	// Outputs:
+	// [0]
+	// <nil>
 }
 
 func TestTryFinally(t *testing.T) {
@@ -66,6 +79,20 @@ func TestTryFinally(t *testing.T) {
 	a.EqualNow(out, []any{})
 }
 
+func ExampleTryFinally() {
+	out, err := try.TryFinally(func() error {
+		return errors.New("expected error")
+	}, func() {
+		fmt.Println("in finally")
+	})
+	fmt.Println(out)
+	fmt.Println(err)
+	// Outputs:
+	// in finally
+	// [expected error]
+	// expected error
+}
+
 func TestTryCatch(t *testing.T) {
 	a := assert.New(t)
 	expectedErr := errors.New("expected error")
@@ -101,6 +128,20 @@ func TestTryCatch(t *testing.T) {
 	a.EqualNow(err, expectedErr)
 	a.EqualNow(out, []any{})
 	a.TrueNow(caught)
+}
+
+func ExampleTryCatch() {
+	out, err := try.TryCatch(func() error {
+		return errors.New("expected error")
+	}, func(err error) {
+		fmt.Printf("error in catch: %v\n", err)
+	})
+	fmt.Println(out)
+	fmt.Println(err)
+	// Outputs:
+	// error in catch: expected error
+	// [expected error]
+	// expected error
 }
 
 func TestTryCatchFinally(t *testing.T) {
@@ -150,6 +191,23 @@ func TestTryCatchFinally(t *testing.T) {
 	a.EqualNow(out, []any{})
 	a.TrueNow(caught)
 	a.TrueNow(finally)
+}
+
+func ExampleTryCatchFinally() {
+	out, err := try.TryCatchFinally(func() error {
+		return errors.New("expected error")
+	}, func(err error) {
+		fmt.Printf("error in catch: %v\n", err)
+	}, func() {
+		fmt.Println("in finally")
+	})
+	fmt.Println(out)
+	fmt.Println(err)
+	// Outputs:
+	// error in catch: expected error
+	// in finally
+	// [expected error]
+	// expected error
 }
 
 func TestInvalidTry(t *testing.T) {
