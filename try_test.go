@@ -39,7 +39,7 @@ func ExampleTry() {
 	})
 	fmt.Println(out)
 	fmt.Println(err)
-	// Outputs:
+	// Output:
 	// [0]
 	// <nil>
 }
@@ -87,7 +87,7 @@ func ExampleTryFinally() {
 	})
 	fmt.Println(out)
 	fmt.Println(err)
-	// Outputs:
+	// Output:
 	// in finally
 	// [expected error]
 	// expected error
@@ -138,7 +138,7 @@ func ExampleTryCatch() {
 	})
 	fmt.Println(out)
 	fmt.Println(err)
-	// Outputs:
+	// Output:
 	// error in catch: expected error
 	// [expected error]
 	// expected error
@@ -203,7 +203,7 @@ func ExampleTryCatchFinally() {
 	})
 	fmt.Println(out)
 	fmt.Println(err)
-	// Outputs:
+	// Output:
 	// error in catch: expected error
 	// in finally
 	// [expected error]
