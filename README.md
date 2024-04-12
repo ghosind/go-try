@@ -44,7 +44,7 @@ fmt.Println(err)
 The package provides four forms for the `try` statement alternative:
 
 - `Try`
-- `TryFinal`
+- `TryFinally`
 - `TryCatch`
 - `TryCatchFinally`
 
